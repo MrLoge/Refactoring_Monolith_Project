@@ -1,0 +1,50 @@
+version: '3.7'
+services:
+
+  user-service:
+    container_name: udagram-user-service
+    image: joachimloge/udagram-user-service
+    ports:
+    - 8081:8081
+    networks:
+      - udagram-service-network
+    environment:
+      - UDACITY_DB_USERNAME=${UDACITY_DB_USERNAME}
+      - UDACITY_DB_PASSWORD=${UDACITY_DB_PASSWORD}
+      - UDACITY_DB_DATABASE=${UDACITY_DB_DATABASE}
+      - UDACITY_DB_HOST=${UDACITY_DB_HOST}
+      - AWS_REGION=${AWS_REGION}
+      - AWS_PROFILE=${AWS_PROFILE}
+      - UDACITY_AWS_MEDIA_BUCKET=${UDACITY_AWS_MEDIA_BUCKET}
+      - UDACITY_JWT=${UDACITY_JWT}
+
+  feed-service:
+    container_name: udagram-feed-service
+    image: joachimloge/udagram-feed-service
+    ports:
+    - 8082:8082
+    networks:
+      - udagram-service-network
+    environment:
+      - UDACITY_DB_USERNAME=${UDACITY_DB_USERNAME}
+      - UDACITY_DB_PASSWORD=${UDACITY_DB_PASSWORD}
+      - UDACITY_DB_DATABASE=${UDACITY_DB_DATABASE}
+      - UDACITY_DB_HOST=${UDACITY_DB_HOST}
+      - AWS_REGION=${AWS_REGION}
+      - AWS_PROFILE=${AWS_PROFILE}
+      - UDACITY_AWS_MEDIA_BUCKET=${UDACITY_AWS_MEDIA_BUCKET}
+      - UDACITY_JWT=${UDACITY_JWT}
+
+
+  api-gateway:
+    container_name: udagram-api-gateway
+    image: joachimloge/udagram-api-gateway
+    ports:
+    - 8080:8080
+    networks:
+      - udagram-service-network
+
+networks:
+  udagram-service-network:
+    name: udagram-service-network
+    driver: "bridge"
