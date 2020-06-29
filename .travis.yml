@@ -18,6 +18,9 @@ install:
 before_script:
   - echo "no tests"
 
+script:
+  - echo "nothing to execute here"
+
 after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
