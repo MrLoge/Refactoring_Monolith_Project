@@ -1,5 +1,10 @@
 version: '3.7'
 services:
+  udagram-frontend:
+    container_name: udagram-frontend
+    build: udagram-frontend
+    ports:
+      - "8100:80"
 
   user-service:
     container_name: udagram-user-service

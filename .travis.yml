@@ -24,20 +24,22 @@ script:
 after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
+  # udagram-frontend
+  - docker build -t udagram-frontend ./udagram-frontend
+  - docker tag udagram-frontend joachimloge/udagram-frontend:latest
+  - docker push joachimloge/udagram-frontend:latest  
+
   # udagram-feed-service
-  - export CONFIG=joachimloge/udagram-feed-service
   - docker build -t udagram-feed-service ./udagram-api/feed-service
   - docker tag udagram-feed-service joachimloge/udagram-feed-service:latest
   - docker push joachimloge/udagram-feed-service:latest  
 
   # udagram-user-service
-  - export CONFIG=joachimloge/udagram-user-service
   - docker build -t udagram-user-service ./udagram-api/user-service
   - docker tag udagram-user-service joachimloge/udagram-user-service:latest
   - docker push joachimloge/udagram-user-service:latest 
 
   # udagram-api-gateway
-  - export CONFIG=joachimloge/udagram-api-gateway
   - docker build -t udagram-api-gateway ./udagram-api-gateway
   - docker tag udagram-api-gateway joachimloge/udagram-api-gateway:latest
   - docker push joachimloge/udagram-api-gateway:latest 
