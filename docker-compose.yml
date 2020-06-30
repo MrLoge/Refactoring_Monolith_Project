@@ -3,6 +3,8 @@ services:
   udagram-frontend:
     container_name: udagram-frontend
     image: joachimloge/udagram-frontend
+    networks:
+      - udagram-service-network    
     ports:
       - "8100:80"
 
