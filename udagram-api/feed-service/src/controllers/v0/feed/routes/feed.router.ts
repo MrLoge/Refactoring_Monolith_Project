@@ -8,6 +8,10 @@ const router: Router = Router();
 
 // Get all feed items
 router.get('/', async (req: Request, res: Response) => {
+    // Example logging
+    let pid = uuidv4();
+    console.log(new Date().toLocaleString() + `: ${pid} - requested for list of Feed items`);
+
     const items = await FeedItem.findAndCountAll({order: [['id', 'DESC']]});
     items.rows.map((item) => {
             if(item.url) {
@@ -15,9 +19,7 @@ router.get('/', async (req: Request, res: Response) => {
             }
     });
 
-    // Example logging
-    let pid = uuidv4();
-    console.log(new Date().toLocaleString() + `: ${pid} - requested for list of Feed items`);
+    console.log(new Date().toLocaleString() + `: ${pid} - Finished processing list of Feed items`);
 
     // Return response
     res.send(items);
