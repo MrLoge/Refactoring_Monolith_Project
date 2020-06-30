@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: udagram-user-service
+  name: udagram-user-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: udagram-user-service
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.21.0 (992df58d8)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/udagram-service-network: "true"
+        io.kompose.service: udagram-user-service
+    spec:
+      containers:
+        - env:
+          - name: AWS_PROFILE
+            valueFrom:
+              secretKeyRef:
+                name: mysecret
+                key: AWS_PROFILE
+          - name: AWS_REGION
+            valueFrom:
+              secretKeyRef:
+                name: mysecret
+                key: AWS_REGION
+          - name: UDACITY_AWS_MEDIA_BUCKET
+            valueFrom:
+              secretKeyRef:
+                name: mysecret
+                key: UDACITY_AWS_MEDIA_BUCKET
+          - name: UDACITY_DB_DATABASE
+            valueFrom:
+              secretKeyRef:
+                name: mysecret
+                key: UDACITY_DB_DATABASE
+          - name: UDACITY_DB_HOST
+            valueFrom:
+              secretKeyRef:
+                name: mysecret
+                key: UDACITY_DB_HOST
+          - name: UDACITY_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysecret
+                key: UDACITY_DB_PASSWORD
+          - name: UDACITY_DB_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: mysecret
+                key: UDACITY_DB_USERNAME
+          - name: UDACITY_JWT
+            valueFrom:
+              secretKeyRef:
+                name: mysecret
+                key: UDACITY_JWT
+          image: joachimloge/udagram-user-service
+          imagePullPolicy: ""
+          name: udagram-user-service
+          ports:
+          - containerPort: 8080
+          resources: {}
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes: null
+status: {}

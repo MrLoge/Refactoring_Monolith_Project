@@ -8,11 +8,11 @@ services:
     ports:
       - "8100:80"
 
-  user-service:
+  udagram-user-service:
     container_name: udagram-user-service
     image: joachimloge/udagram-user-service
     ports:
-    - 8081:8081
+    - 8080:8080
     networks:
       - udagram-service-network
     environment:
@@ -25,11 +25,11 @@ services:
       - UDACITY_AWS_MEDIA_BUCKET=${UDACITY_AWS_MEDIA_BUCKET}
       - UDACITY_JWT=${UDACITY_JWT}
 
-  feed-service:
+  udagram-feed-service:
     container_name: udagram-feed-service
     image: joachimloge/udagram-feed-service
     ports:
-    - 8082:8082
+    - 8080:8080
     networks:
       - udagram-service-network
     environment:
