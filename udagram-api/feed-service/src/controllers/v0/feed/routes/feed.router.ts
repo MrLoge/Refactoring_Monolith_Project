@@ -2,6 +2,7 @@ import { Router, Request, Response } from 'express';
 import { FeedItem } from '../models/FeedItem';
 import { requireAuth } from '../../../../util/authentication';
 import * as AWS from '../../../../aws';
+const { v4: uuidv4 } = require('uuid');
 
 const router: Router = Router();
 
@@ -13,6 +14,12 @@ router.get('/', async (req: Request, res: Response) => {
                 item.url = AWS.getGetSignedUrl(item.url);
             }
     });
+
+    // Example logging
+    let pid = uuidv4();
+    console.log(new Date().toLocaleString() + `: ${pid} - requested for list of Feed items`);
+
+    // Return response
     res.send(items);
 });
 
